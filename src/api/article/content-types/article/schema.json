@@ -45,6 +45,10 @@
       "enum": [
         "UNI_STUDENT"
       ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
     }
   }
 }
