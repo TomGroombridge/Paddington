@@ -68,6 +68,25 @@
       "relation": "manyToMany",
       "target": "api::webinar.webinar",
       "mappedBy": "users_permissions_users"
+    },
+    "firstName": {
+      "type": "string",
+      "required": false
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "occupation": {
+      "type": "enumeration",
+      "enum": [
+        "UNI_STUDENT",
+        "SIXTH_FORM_STUDENT",
+        "SENIOR_STUDENT",
+        "PRIMARY_STUDENT",
+        "TEACHER",
+        "PARENT",
+        "OTHER"
+      ]
     }
   }
 }
