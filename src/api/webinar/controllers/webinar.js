@@ -30,8 +30,20 @@ module.exports = createCoreController('api::webinar.webinar', ({ strapi }) => ({
     const sanitizedEntity = await this.sanitizeOutput(upcoming_webinars, ctx);
 
     return this.transformResponse(sanitizedEntity);
-    // console.log('upcoming', upcoming_webinars)
+  },
+  async upcoming_events(ctx) {
+    if (!ctx.state.isAuthenticated) {
+      return ctx.unauthorized(['You are not authorised'], []);
+    }
 
-    // return upcoming_webinars
+    const date = new Date();
+    const iso = date.toISOString();
+
+    const upcoming_webinars = await strapi.db.query("api::webinar.webinar").findMany({
+      where: { date: { $gte: iso } }
+    });
+
+    const sanitizedEntity = await this.sanitizeOutput(upcoming_webinars, ctx);
+    return this.transformResponse(sanitizedEntity)
   }
 }));
