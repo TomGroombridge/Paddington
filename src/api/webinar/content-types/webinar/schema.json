@@ -55,6 +55,11 @@
     "public": {
       "type": "boolean",
       "default": false
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
     }
   }
 }
