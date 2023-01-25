@@ -55,6 +55,19 @@ module.exports = (plugin) => {
       }
     );
 
+    try {
+      await strapi.plugins['email'].services.email.send({
+        to: user.email,
+        from: 'abi@elent.com',
+        subject: `Successfully Signed up for ${webinar.title}`,
+        text: 'Hello world!',
+        html: 'Hello world!',
+      })
+    } catch (error) {
+      console.log('SENDGRID ERROR', error.response.body);
+    }
+
+
     return user
   }
 
