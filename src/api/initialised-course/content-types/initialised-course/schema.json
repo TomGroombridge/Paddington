@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "initialised_courses",
+  "info": {
+    "singularName": "initialised-course",
+    "pluralName": "initialised-courses",
+    "displayName": "Initialised_course",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "course": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course.course",
+      "inversedBy": "initialised_courses"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "initialised_courses"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "completed_steps": {
+      "type": "json",
+      "required": false
+    }
+  }
+}

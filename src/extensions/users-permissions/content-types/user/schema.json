@@ -87,6 +87,12 @@
         "PARENT",
         "OTHER"
       ]
+    },
+    "initialised_courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::initialised-course.initialised-course",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
