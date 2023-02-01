@@ -18,12 +18,44 @@ module.exports = createCoreController('api::initialised-course.initialised-cours
       { populate: ['initialised_courses', 'initialised_courses.course'] }
     );
 
-    console.log('user', user.initialised_courses);
-
     const data = { courses: [...user.initialised_courses] }
     const sanitizedEntity = await this.sanitizeOutput(data, ctx);
 
     return this.transformResponse(sanitizedEntity);
+  },
+  async create(ctx) {
+    if (!ctx.state.isAuthenticated) {
+      return ctx.unauthorized(['You are not authorised'], []);
+    }
+
+    const user = await strapi.entityService.findOne(
+      'plugin::users-permissions.user',
+      ctx.state.user.id,
+      { populate: ['initialised_courses', 'initialised_courses.course'] }
+    );
+
+    const { data: { slug } } = ctx.request.body;
+
+    const course = await strapi.db.query('api::course.course').findOne({
+      where: { slug: slug },
+    });
+
+    if (!course) {
+      return ctx.badRequest(null, [{ messages: [{ id: 'The request has failed.' }] }]);
+    }
+
+    const data = user.initialised_courses.find((init_course) => init_course.course.slug === course.slug)
+
+    if (data) {
+      return ctx.badRequest(null, [{ messages: [{ id: 'Course already exists for Customer' }] }]);
+    }
+
+    try {
+      await strapi.service('api::initialised-course.initialised-course').create({ data: { users_permissions_user: ctx.state.user.id, course: course.id } })
+      return ctx.response.status = 200;
+    } catch (err) {
+      return ctx.badRequest(null, [{ messages: [{ id: 'The request has failed.' }] }]);
+    }
   },
   async findOne(ctx) {
     const { slug } = ctx.params;

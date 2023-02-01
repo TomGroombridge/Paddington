@@ -45,6 +45,11 @@ const myOverideRoutes = [
     path: "/users/initialised-courses/:slug",
     handler: "api::initialised-course.initialised-course.findOne",
   },
+  {
+    method: "POST",
+    path: "/initialised-courses",
+    handler: "api::initialised-course.initialised-course.create",
+  }
 ];
 
 const myExtraRoutes = [
