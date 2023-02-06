@@ -104,6 +104,28 @@ module.exports = (plugin) => {
 
   }
 
+  plugin.controllers.user.updateStripeCustomerId = async (ctx) => {
+    if (!ctx.state.user) {
+      return ctx.unauthorized();
+    }
+
+    const { stripe_customer_id } = ctx.request.body
+
+    if (!stripe_customer_id) {
+      return ctx.badRequest('no customer id')
+    }
+
+    const user = await strapi.entityService.update('plugin::users-permissions.user', ctx.state.user.id, {
+      data: {
+        stripe_customer_id,
+      },
+      fields: ['stripe_customer_id']
+    });
+
+    return user
+
+  }
+
   plugin.routes['content-api'].routes.push({
     method: 'PUT',
     path: '/users/onboard',
@@ -116,6 +138,10 @@ module.exports = (plugin) => {
     method: 'POST',
     path: '/users/events/unattend',
     handler: 'user.unattendEvent'
+  }, {
+    method: 'PUT',
+    path: '/users/update_customer_id',
+    handler: 'user.updateStripeCustomerId'
   });
 
   return plugin;

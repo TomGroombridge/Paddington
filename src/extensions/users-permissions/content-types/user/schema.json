@@ -93,6 +93,9 @@
       "relation": "oneToMany",
       "target": "api::initialised-course.initialised-course",
       "mappedBy": "users_permissions_user"
+    },
+    "stripe_customer_id": {
+      "type": "string"
     }
   }
 }
