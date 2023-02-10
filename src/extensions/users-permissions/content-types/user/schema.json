@@ -96,6 +96,16 @@
     },
     "stripe_customer_id": {
       "type": "string"
+    },
+    "membership": {
+      "type": "enumeration",
+      "enum": [
+        "FREE",
+        "MONTHLY",
+        "YEARLY",
+        "ENTERPRISE"
+      ],
+      "default": "FREE"
     }
   }
 }
