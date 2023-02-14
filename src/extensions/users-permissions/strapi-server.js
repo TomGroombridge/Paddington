@@ -126,6 +126,26 @@ module.exports = (plugin) => {
 
   }
 
+  plugin.controllers.user.updateMembership = async (ctx) => {
+    const { stripe_customer_id, membership } = ctx.request.body
+    const { id } = await strapi.db.query('plugin::users-permissions.user').findOne({
+      where: { stripe_customer_id: stripe_customer_id },
+    });
+
+    if (!id) {
+      return ctx.badRequest('no user found')
+    }
+
+    const user = await strapi.entityService.update('plugin::users-permissions.user', id, {
+      data: {
+        membership: membership,
+      },
+      fields: ['membership']
+    });
+
+    return user
+  }
+
   plugin.routes['content-api'].routes.push({
     method: 'PUT',
     path: '/users/onboard',
@@ -142,6 +162,10 @@ module.exports = (plugin) => {
     method: 'PUT',
     path: '/users/update_customer_id',
     handler: 'user.updateStripeCustomerId'
+  }, {
+    method: 'POST',
+    path: '/users/update_membership',
+    handler: 'user.updateMembership'
   });
 
   return plugin;
