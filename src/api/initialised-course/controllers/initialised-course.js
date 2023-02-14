@@ -111,7 +111,7 @@ module.exports = createCoreController('api::initialised-course.initialised-cours
       return topic.steps.map((step) => step.step_slug)
     })
 
-    if (!actions[0].includes(slug.toString())) {
+    if (!actions.flat().includes(slug.toString())) {
       return ctx.response.notFound('Invalid action');
     }
 
