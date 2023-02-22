@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * webinar router.
+ * quiz router.
  */
 
 const { createCoreRouter } = require("@strapi/strapi").factories;

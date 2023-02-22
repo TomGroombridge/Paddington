@@ -16,9 +16,9 @@ module.exports = createCoreController('api::quiz.quiz', ({ strapi }) => ({
       ...ctx.query,
     };
 
-    const webinar = await strapi.entityService.findMany("api::quiz.quiz", query);
+    const quiz = await strapi.entityService.findMany("api::quiz.quiz", query);
 
-    const sanitizedEntity = await this.sanitizeOutput(webinar);
+    const sanitizedEntity = await this.sanitizeOutput(quiz);
 
     return this.transformResponse(sanitizedEntity[0]);
   },
