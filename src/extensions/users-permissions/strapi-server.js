@@ -60,8 +60,11 @@ module.exports = (plugin) => {
         to: user.email,
         from: 'abi@elent.com',
         subject: `Successfully Signed up for ${webinar.title}`,
-        text: 'Hello world!',
-        html: 'Hello world!',
+        template_id: "d-d481fd4c934f4dc0af800ce11b9164b0",
+        dynamic_template_data: {
+          webinar_title: webinar.title,
+          time: "20th February at 6:00pm"
+        }
       })
     } catch (error) {
       console.log('SENDGRID ERROR', error.response.body);
