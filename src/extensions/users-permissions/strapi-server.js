@@ -1,4 +1,4 @@
-const { formatLongDate } = require("../../../config/helpers")
+const { formatLongDate, formatAMPM } = require("../../../config/helpers")
 
 module.exports = (plugin) => {
   plugin.controllers.user.onboard = async (ctx) => {
@@ -71,7 +71,7 @@ module.exports = (plugin) => {
         }
       })
     } catch (error) {
-      console.log('SENDGRID ERROR', error.response.body);
+      console.log('SENDGRID ERROR', error.response);
     }
 
 
