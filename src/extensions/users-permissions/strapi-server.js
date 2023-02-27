@@ -1,3 +1,5 @@
+const { formatLongDate } = require("../../../config/helpers")
+
 module.exports = (plugin) => {
   plugin.controllers.user.onboard = async (ctx) => {
     const { firstName, lastName, occupation, mobile } = ctx.request.body;
@@ -55,6 +57,8 @@ module.exports = (plugin) => {
       }
     );
 
+    const date = new Date(`${webinar.date} ${webinar.time}`)
+
     try {
       await strapi.plugins['email'].services.email.send({
         to: user.email,
@@ -63,7 +67,7 @@ module.exports = (plugin) => {
         template_id: "d-d481fd4c934f4dc0af800ce11b9164b0",
         dynamic_template_data: {
           webinar_title: webinar.title,
-          time: "20th February at 6:00pm"
+          time: `${formatLongDate(date)} at ${formatAMPM(date)}`
         }
       })
     } catch (error) {
