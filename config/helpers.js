@@ -1,5 +1,5 @@
 module.exports = {
-  async formatAMPM(date) {
+  formatAMPM(date) {
     var hours = date.getHours();
     var minutes = date.getMinutes();
     var ampm = hours >= 12 ? 'pm' : 'am';
@@ -9,7 +9,7 @@ module.exports = {
     var strTime = hours + ':' + minutes + ' ' + ampm;
     return strTime;
   },
-  async formatLongDate(date) {
+  formatLongDate(date) {
     const year = date.toLocaleString("default", { year: "numeric" });
     const month = date.toLocaleString("default", { month: "long" });
     const day = date.toLocaleString("default", { day: "2-digit" });
