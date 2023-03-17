@@ -86,6 +86,7 @@
         "SIXTH_FORM_STUDENT",
         "TEACHER",
         "PARENT",
+        "UNEMPLOYED",
         "OTHER"
       ]
     },
